@@ -17,14 +17,21 @@ var Board = React.createClass({
             notes:[]
         };
     },
+    nextId(){
+        this.uniqueId = this.uniqueId || 0;
+        return this.uniqueId++;
+    },
     add(text){
         var arr = this.state.notes;
-        arr.push(text);
+        arr.push({
+            id: this.nextId(),
+            note: text
+        });
         this.setState({notes: arr});
     },
     update(newText, i){
         var arr = this.state.notes;
-        arr[i] = newText;
+        arr[i].note = newText;
         this.setState({notes: arr});
     },
     remove(i){
@@ -33,10 +40,10 @@ var Board = React.createClass({
         this.setState({notes: arr});
     },
     eachNote(note, i){
-        return <Note key={i}
+        return <Note key={note.id}
                      index={i}
                      onChange={this.update}
-                     onRemove={this.remove}>{note}</Note>
+                     onRemove={this.remove}>{note.note}</Note>
     },
     render(){
         return <div className="board">
