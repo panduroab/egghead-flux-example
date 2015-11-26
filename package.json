@@ -2,9 +2,10 @@
   "name": "egghead-flux",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app-server.js",
   "scripts": {
-    "start": "webpack-dev-server"
+    "prestart": "webpack",
+    "start": "node ."
   },
   "author": "",
   "license": "ISC",
