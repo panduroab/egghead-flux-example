@@ -29,6 +29,20 @@ var Board = React.createClass({
         });
         this.setState({notes: arr});
     },
+    componentWillMount() {
+        var self = this;
+        if(this.props.count){
+            console.log(this.props.count);
+            $.getJSON("http://baconipsum.com/api/?type=all-meat&setences=" + this.props.count + "&start-with-lorem=1&callback=?", function(results){
+                //console.log(results.length);
+                results.forEach(function(sentence){
+                    sentence.split(', ').forEach(function(frase){
+                        self.add(frase.substring(0,40));
+                    });
+                });
+            });
+        }
+    },
     update(newText, i){
         var arr = this.state.notes;
         arr[i].note = newText;

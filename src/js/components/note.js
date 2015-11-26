@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 var Note =  React.createClass({
     getInitialState(){
@@ -11,6 +12,10 @@ var Note =  React.createClass({
             transform: 'rotate(' + this.randomBetween(-15, 15) + 'deg'
         };
     },
+    componentDidMount() {
+        var _note = ReactDOM.findDOMNode(this);
+        $(_note).draggable();
+    },
     randomBetween(min, max){
         return(min + Math.ceil(Math.random() * max));
     },
@@ -19,7 +24,7 @@ var Note =  React.createClass({
     },
 
     save() {
-        this.props.onChange(this.refs.newText.getDOMNode().value, this.props.index)
+        this.props.onChange(this.refs.newText.value, this.props.index)
         this.setState({editing: false})
     },
     
